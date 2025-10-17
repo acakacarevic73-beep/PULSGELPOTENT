@@ -193,22 +193,31 @@ l<!DOCTYPE html>
     <footer class="puls-footer" data-fade>
       <p class="puls-cta-lead"><strong>Vrhunski lubrikant nove generacije.</strong> Istraži granice zadovoljstva, probudi čula i doživi nadražaje kakve do sada nisi poznavao.</p>
       <div class="puls-buttons">
-        <!-- CTA dugme ispod h2 -->
-<a href="#order-form" class="btn-primary" style="
-  display:inline-block;
-  padding:10px 20px;
-  margin-top:12px;
-  background:#ff6b6b;
-  color:#111;
-  font-weight:600;
-  text-decoration:none;
-  border-radius:10px;
-  cursor:pointer;
-">PROBAJ SAD</a>
+        <a href="#order-form" class="btn-primary">PROBAJ SAD</a>
 
-<!-- Smooth scroll (dodati jednom u <style>) -->
 <style>
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth; /* glatko skrolovanje do forme */
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 12px 0;
+    background: #ff6b6b;
+    color: #111;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+</style>
   
       </div>
     </footer>
