@@ -217,6 +217,7 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   }
+  <a href="#order-form" class="btn-primary">PROBAJ SAD</a>
 </style>
   </div>
 </section>
@@ -306,6 +307,9 @@
     <div class="total" id="totalPrice">Ukupno: 1500 RSD / 12 EUR</div>
 
     <button type="submit" id="submitOrder">Pošalji porudžbinu</button>
+    <form id="order-form" name="puls-order" method="POST" data-netlify="true">
+  <input type="hidden" name="form-name" value="puls-order">
+    </form>
   </form>
   <div id="thankYouMsg">Hvala! Porudžbina je poslata. ✅</div>
 </div>
