@@ -219,6 +219,15 @@
   }
   <a href="#order-form" class="btn-primary">PROBAJ SAD</a>
 </style>
+<script>
+  document.getElementById('cta-button').addEventListener('click', function(e) {
+    e.preventDefault(); // blokira default ponašanje linka
+    const form = document.getElementById('order-form');
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' }); // glatko skrolovanje do forme
+    }
+  });
+</script>
   </div>
 </section>
 <h2>🔥 2️⃣ Novi nivo povezanosti</h2>
