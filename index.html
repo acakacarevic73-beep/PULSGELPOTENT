@@ -160,7 +160,44 @@
     <header class="puls-header">
       <h1 class="puls-title">PULS Gel </span></h1>
       <h2 class="puls-subtitle">Oseti više – svaka kap probudi želju, pojača dodir i produbi zadovoljstvo.</h2>
-      <p class="puls-lead">Vrhunski lubrikant nove generacije — probudi čula, oseti razliku.</p>
+    <!-- Dugme -->
+<a href="#" class="btn-primary" id="cta-button">PROBAJ SAD</a>
+
+<!-- Forma (već postoji na sajtu, samo da ima id) -->
+<form id="order-form">
+  <!-- polja forme… -->
+</form>
+
+<!-- Skripta koja uvek radi -->
+<script>
+document.getElementById('cta-button').addEventListener('click', function(e){
+    e.preventDefault(); // sprečava default href ponašanje
+    const form = document.getElementById('order-form');
+    if(form){
+        const yOffset = -80; // visina headera, prilagodi ako je drugačije
+        const y = form.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }
+});
+</script>
+
+<style>
+  .btn-primary {
+    display:inline-block;
+    padding:10px 20px;
+    background:#ff6b6b;
+    color:#111;
+    font-weight:600;
+    text-decoration:none;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+  }
+    </style>
     </header>
 
     <div class="puls-grid">
