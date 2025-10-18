@@ -248,6 +248,180 @@
   <!-- PulsGel Porudžbina -->
 <section id="pulsgel-porudzbina" style="text-align:center; margin:40px 0;">
   <h2>Poruči svoj PulsGel</h2>
+  <!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulsGel</title>
+
+<!-- EmailJS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+
+<!-- CSS -->
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin:0;
+  padding:0;
+  background: linear-gradient(to bottom right, #ffe6f0, #e6f0ff);
+}
+header, footer { text-align:center; padding:20px; background:#fff; }
+h1,h2 { text-align:center; color:#333; }
+form {
+  max-width: 550px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+form:hover { transform: translateY(-5px); }
+label { display:block; margin-top:15px; font-weight:bold; color:#444; }
+input, select, textarea { width:100%; padding:10px; margin-top:5px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+input[type="radio"], input[type="checkbox"] { width:auto; margin-right:5px; }
+button {
+  margin-top:25px;
+  padding:12px 20px;
+  font-size:18px;
+  cursor:pointer;
+  background: linear-gradient(to right, #ff69b4, #007bff);
+  color:white;
+  border:none;
+  border-radius:8px;
+  width:100%;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover { background: linear-gradient(to right, #ff85c1, #0056b3); transform: scale(1.02); }
+.preview-container { text-align:center; margin:15px 0; }
+.preview-container img { width:100px; transition: transform 0.3s; }
+.ukupno { font-weight:bold; margin-top:10px; text-align:right; font-size:1.1em; transition: all 0.3s; }
+.pakovanje-img { width:70px; vertical-align:middle; margin-right:10px; cursor:pointer; border:2px solid transparent; border-radius:8px; transition: transform 0.3s, border-color 0.3s; }
+.pakovanje-img:hover { transform: scale(1.1); }
+.pakovanje-img.selected { border-color:#ff69b4; transform: scale(1.15); }
+.flex-row { display:flex; align-items:center; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PulsGel</h1>
+  <p>Prirodna stimulacija, poboljšava erekciju, vlaznost vagine i afrodizijačku želju</p>
+</header>
+
+<main>
+  <!-- OVDE IDE FORMA -->
+  <h2>Poruči svoj PulsGel</h2>
+
+  <form id="pulsForm">
+    <label>Ime i prezime<input type="text" name="ime" required></label>
+    <label>Email<input type="email" name="email" required></label>
+    <label>Telefon<input type="text" name="telefon" required></label>
+    <label>Adresa<input type="text" name="adresa" required></label>
+    <label>Grad/Opština<input type="text" name="grad" required></label>
+    <label>Poštanski broj<input type="text" name="postanski_broj" required></label>
+
+    <label>Pakovanje:</label>
+    <div class="flex-row">
+      <input type="radio" name="pakovanje" value="30ml" checked id="pak30">
+      <img src="https://via.placeholder.com/70x70?text=30ml" alt="30ml" class="pakovanje-img selected" onclick="selectPakovanje('30ml')">
+      30ml (1500 RSD)
+    </div>
+    <div class="flex-row">
+      <input type="radio" name="pakovanje" value="50ml" id="pak50">
+      <img src="https://via.placeholder.com/70x70?text=50ml" alt="50ml" class="pakovanje-img" onclick="selectPakovanje('50ml')">
+      50ml (2200 RSD)
+    </div>
+
+    <div class="preview-container">
+      <img id="previewBočice" src="https://via.placeholder.com/100x100?text=30ml" alt="Preview bočice">
+    </div>
+
+    <label>Količina<input type="number" name="kolicina" value="1" min="1"></label>
+    <label>Dostava:
+      <select name="dostava">
+        <option value="Kurir">Kurir</option>
+        <option value="Pošta">Pošta</option>
+      </select>
+    </label>
+
+    <label><input type="checkbox" name="placanje"> Plaćanje karticom</label>
+    <label>Napomena<textarea name="napomena" placeholder="Ako imaš posebne zahteve..."></textarea></label>
+
+    <div class="ukupno" id="ukupno">Ukupno: 1500 RSD</div>
+    <div class="ukupno" id="eur">≈ 12.8 EUR</div>
+
+    <button type="submit">Pošalji porudžbinu</button>
+  </form>
+</main>
+
+<footer>
+  <p>&copy; 2025 PulsGel. Sva prava zadržana.</p>
+</footer>
+
+<!-- JS -->
+<script>
+emailjs.init("WKV419-gz6OQWSgRJ");
+
+const form = document.getElementById('pulsForm');
+const ukupnoRSD = document.getElementById('ukupno');
+const ukupnoEUR = document.getElementById('eur');
+const previewImg = document.getElementById('previewBočice');
+
+function updatePrice(){
+  const pakovanje = document.querySelector('input[name="pakovanje"]:checked').value;
+  const kolicina = parseInt(form.kolicina.value) || 1;
+  const cenaRSD = (pakovanje==="30ml"?1500:2200) * kolicina;
+  const cenaEUR = (cenaRSD/117).toFixed(2);
+  ukupnoRSD.innerText = `Ukupno: ${cenaRSD} RSD`;
+  ukupnoEUR.innerText = `≈ ${cenaEUR} EUR`;
+}
+
+function selectPakovanje(pak){
+  document.querySelectorAll('.pakovanje-img').forEach(img => img.classList.remove('selected'));
+  previewImg.src = pak==="30ml" ? "https://via.placeholder.com/100x100?text=30ml" : "https://via.placeholder.com/100x100?text=50ml";
+  document.querySelector(`input[name="pakovanje"][value="${pak}"]`).checked = true;
+  document.querySelector(`img[alt="${pak}"]`).classList.add('selected');
+  updatePrice();
+}
+
+form.addEventListener('change', updatePrice);
+form.addEventListener('input', updatePrice);
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  const formData = {
+    ime: this.ime.value,
+    email: this.email.value,
+    telefon: this.telefon.value,
+    adresa: this.adresa.value,
+    grad: this.grad.value,
+    postanski_broj: this.postanski_broj.value,
+    pakovanje: document.querySelector('input[name="pakovanje"]:checked').value,
+    kolicina: this.kolicina.value,
+    dostava: this.dostava.value,
+    placanje: this.placanje.checked ? "Da" : "Ne",
+    napomena: this.napomena.value
+  };
+  
+  emailjs.send('service_rxj533m','template_5o6etkn', formData)
+    .then(() => { 
+        alert("Porudžbina poslata! Hvala."); 
+        this.reset(); 
+        updatePrice(); 
+        selectPakovanje('30ml');
+    },
+    (err) => { 
+        alert("Greška pri slanju: "+JSON.stringify(err)); 
+    });
+});
+
+updatePrice();
+</script>
+
+</body>
+</html>
 
   <div style="display:flex; justify-content:center; gap:20px; margin-bottom:20px;">
     <div class="bocica" data-paket="30ml" data-price="1500" style="cursor:pointer; border:1px solid #ccc; padding:10px; border-radius:10px;">
