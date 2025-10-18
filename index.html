@@ -245,6 +245,80 @@
 <h2>🔘 11️⃣ Porudžbina</h2>
 <section id="forma-porudzbine">
   <h2>Poruči sada</h2>
+  <!-- PulsGel Porudžbina -->
+<section id="pulsgel-porudzbina" style="text-align:center; margin:40px 0;">
+  <h2>Poruči svoj PulsGel</h2>
+
+  <div style="display:flex; justify-content:center; gap:20px; margin-bottom:20px;">
+    <div class="bocica" data-paket="30ml" data-price="1500" style="cursor:pointer; border:1px solid #ccc; padding:10px; border-radius:10px;">
+      <div style="width:80px; height:120px; background:#ffcccc; display:flex; align-items:center; justify-content:center; font-weight:bold; margin:0 auto 10px;">30ml</div>
+      <span>30ml - 1500 RSD</span>
+    </div>
+    <div class="bocica" data-paket="50ml" data-price="2200" style="cursor:pointer; border:1px solid #ccc; padding:10px; border-radius:10px;">
+      <div style="width:80px; height:120px; background:#ffcccc; display:flex; align-items:center; justify-content:center; font-weight:bold; margin:0 auto 10px;">50ml</div>
+      <span>50ml - 2200 RSD</span>
+    </div>
+  </div>
+
+  <form action="https://formsubmit.co/acakacarevic73@gmail.com" method="POST" style="max-width:350px; margin:0 auto; display:flex; flex-direction:column; gap:10px;">
+    <input type="text" name="Ime" placeholder="Ime i prezime" required>
+    <input type="email" name="Email" placeholder="Email" required>
+    <input type="text" name="Adresa" placeholder="Adresa" required>
+
+    <select name="Pakovanje" id="pakovanje">
+      <option value="30ml" data-price="1500">30ml - 1500 RSD</option>
+      <option value="50ml" data-price="2200">50ml - 2200 RSD</option>
+    </select>
+
+    <div style="display:flex; justify-content:center; gap:5px; align-items:center;">
+      <button type="button" id="minus">-</button>
+      <input type="number" name="Kolicina" id="kolicina" value="1" min="1">
+      <button type="button" id="plus">+</button>
+    </div>
+
+    <div style="font-weight:bold; margin-top:10px;">
+      Ukupno: <span id="ukupnoRSD">1500</span> RSD ≈ <span id="ukupnoEUR">12.77</span> €
+    </div>
+
+    <input type="hidden" name="_next" value="https://acakacarevic73.github.io/hvala.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button type="submit" style="background:#ff4d4d; color:white; padding:10px; border:none; cursor:pointer;">Pošalji porudžbinu</button>
+  </form>
+</section>
+
+<script>
+const kurs = 117;
+const kolInput = document.getElementById("kolicina");
+const rsd = document.getElementById("ukupnoRSD");
+const eur = document.getElementById("ukupnoEUR");
+const paketSelect = document.getElementById("pakovanje");
+const bocice = document.querySelectorAll(".bocica");
+
+function racunaj() {
+  const cena = parseInt(paketSelect.selectedOptions[0].getAttribute("data-price"));
+  const kolicina = parseInt(kolInput.value);
+  const total = cena * kolicina;
+  rsd.textContent = total.toLocaleString("sr-RS");
+  eur.textContent = (total / kurs).toFixed(2);
+}
+
+paketSelect.onchange = racunaj;
+kolInput.oninput = racunaj;
+
+document.getElementById("plus").onclick = () => { kolInput.value = parseInt(kolInput.value)+1; racunaj(); };
+document.getElementById("minus").onclick = () => { if(kolInput.value>1){ kolInput.value = parseInt(kolInput.value)-1; racunaj(); } };
+
+bocice.forEach(b => {
+  b.addEventListener("click", ()=>{
+    paketSelect.value = b.getAttribute("data-paket");
+    racunaj();
+  });
+});
+
+racunaj();
+</script>
+<!-- Kraj PulsGel Porudžbine -->
   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfOauqkW9ugVj3PYIntWnCtcbwcZB2ajITOrWL17o_2HpD3jw/viewform?embedded=true" 
           width="640" height="1200" frameborder="0" marginheight="0" marginwidth="0">
     Loading…
